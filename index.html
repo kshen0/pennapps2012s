@@ -7,8 +7,8 @@
 
 		// cloudmine business 
       $(document).ready(function() {
-          var appid = "ae44751608f0431989b26a5943500596";
-          var apikey = "d5f3bfe83d7041889bd1b072bdba101e";
+          var appid = "94336397485543688720ad79969d34b7";
+		  var apikey = "dc5b01275f1d4846a51296dd915686b5";
 
           cloudmine.init({app_id: appid, api_key: apikey});
 
@@ -60,7 +60,9 @@
 
   </head>
   <body>
+	  <!--
 	<p><canvas id="new_canvas" width="500" height="510"></canvas><br /> 
+	<p>Marauder's Map</p>
 	<script language = "javascript"> 
 		var ctx = document.getElementById('new_canvas').getContext('2d');
 		var img = new Image();
@@ -68,6 +70,17 @@
 		img.onload = function () {
 		ctx.drawImage(img,0,0);
 	}
+	-->
+	<div class = "container">
+		<p><canvas id="new_canvas" width="1337" height="800"></canvas><br /> 
+		<p>Marauder's Map</p>
+		<script language = "javascript"> 
+			var ctx = document.getElementById('new_canvas').getContext('2d');
+			var img = new Image();
+			img.src = "images/tried.jpg";
+			img.onload = function () {
+			ctx.drawImage(img,0,0);
 	</script>
+	</div>
   </body>
 </html>
