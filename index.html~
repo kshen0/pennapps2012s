@@ -4,6 +4,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
+
+		// cloudmine business 
       $(document).ready(function() {
           var appid = "ae44751608f0431989b26a5943500596";
           var apikey = "d5f3bfe83d7041889bd1b072bdba101e";
@@ -44,7 +46,7 @@
                   // to display to the user in the chat box.
                   success.forEach(function(key, value){
                       chat += value.name + ': ' + value.message + "\n";
-                  });
+                   });
 
                   // Show the assembled string in the chat box.
                   $('#chat').val(chat);
@@ -55,9 +57,17 @@
           setInterval(updateChat, 1000);
       });
     </script>
+
   </head>
   <body>
-    <textarea id="chat" cols="60" rows="20"></textarea>
-    <p>Name: <input type="text" id="name" /> Message: <input type="text" id="message" /></p>
+	<p><canvas id="new_canvas" width="300" height="310"></canvas><br /> 
+	<script language = "javascript"> 
+		var ctx = document.getElementById('new_canvas').getContext('2d');
+		var img = new Image();
+		img.src = "images/tried.jpg";
+		img.onload = function () {
+		ctx.drawImage(img,0,0);
+	}
+	</script>
   </body>
 </html>
