@@ -16,6 +16,9 @@
 
           var name= $('#name').val();
 
+          var lat = 5;
+          var lon = 5;
+
           var user = {
               'name': name,
               'lat': lat,
@@ -25,10 +28,17 @@
           var null = function(){
           }
 
-          cloudmine.updateValue(name, user, null);
+          var updateTest = function(){
+            lat = lat + 10;
+            lon = lon + 10;
+
+            cloudmine.updateValue(name, user, null);
+          }
+
+          setInterval(updateTest, 3000);
 
           // Setup polling of the CloudMine servers to update the chat box.
-          var updateChat = function(){
+          var updateMap = function(){
               // Call the CloudMine API to grab all the data from the server. In this case
               // we want to get all the keys since they represent all the messages.
               var chat = '';
@@ -44,8 +54,8 @@
               });
           }
 
-          updateChat();
-          setInterval(updateChat, 1000);
+          updateMap();
+          setInterval(updateMap, 1000);
       });
     </script>
 
