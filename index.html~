@@ -2,11 +2,11 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
-    <script src="../js/cloudmine.js" language="javascript"></script>
+    <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
       $(document).ready(function() {
-          var appid = "94336397485543688720ad79969d34b7";
-          var apikey = "dc5b01275f1d4846a51296dd915686b5";
+          var appid = "ae44751608f0431989b26a5943500596";
+          var apikey = "d5f3bfe83d7041889bd1b072bdba101e";
 
           cloudmine.init({app_id: appid, api_key: apikey});
 
