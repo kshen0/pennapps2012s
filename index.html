@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
+		<script src="..js/cloudmine.js" language="javascript"></script>
+		<script language="javascript">
+			$(document).ready(function() {
+				var appid = "94336397485543688720ad79969d34b7";
+				var apikey = "dc5b01275f1d4846a51296dd915686b5";
+
+				cloudmine.init({app_id: appid, api_key: apikey});
+
+				$('#message').bind('keydown', function(event) {
+					// if enter is pressed
+					if (event.which == 13) {
+						var key = new Date().getTime();
+
+						// Store object data in JSON object
+						var data = {
+							'name': $('#name').val(),
+							'message': $('#message').val()
+					};
+
+					// Call CloudMine API to push data to server
+					cloudmine.updateValue(key, data, function() {
+						cloudmine.log("Saved: " + key + ": " + data);
+					});
+			}
+		</script>
+	</head>
+</html>
