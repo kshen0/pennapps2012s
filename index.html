@@ -5,6 +5,7 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
@@ -121,7 +122,7 @@
           
           success.forEach(function(key, value){
             var img = new Image();
-            img.src = "images/marker.png";
+            img.src = "images/banner_pointer.png";
             img.onload = function () {
               /*var uly = 39.95708;
               var ulx = -75.206416;
@@ -137,8 +138,8 @@
               var mapheight = uly - bry;
               var x = ((brx - value.lon)/mapwidth) * 923;
               var y = ((bry - value.lat)/mapheight) * -650;
-              x = 923 - x;
-              y = 650 - y;
+              x = 923 - x - 79;
+              y = 650 - y - 70;
               ctx.drawImage(img, x, y);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
               console.log("X coord: " + x + ", Y coord: " + y);
