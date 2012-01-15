@@ -71,13 +71,13 @@
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
 
-          ctx.clearRect(0, 0, 1200, 600);
+          ctx.clearRect(0, 0, 923, 650);
           
           var img = new Image();
-          img.src = "images/marker.png";
-          context.font = "12px Mate SC";
-          context.fillText("x", 248, 43);
-          context.fillText("y", 58, 165);
+          img.src = "images/banner_pointer.png";
+          ctx.font = "40px Mate SC";
+          ctx.fillText("x", 248, 43);
+          ctx.fillText("y", 58, 165);
           
 
           success.forEach(function(key, value){
@@ -93,12 +93,17 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container" class = "box_shadow">
-        <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
+      <div class = "side" id= = "left">
+        <p>Name: <input type="text" id="name" /> </p>
       </div>
 
-      <p>Marauder's Map</p>
-      <p>Name: <input type="text" id="name" /> </p>
+      <div id = "canvas_container" class = "box_shadow">
+        <canvas id="new_canvas" width = 923 height = 650> </canvas> 
+      </div>
+
+      <div class = "side" id = "right">
+        <p> content content content </p>
+      </div>
     </div>
   </body>
 </html>
