@@ -13,7 +13,13 @@
 
         cloudmine.init({app_id: appid, api_key: apikey});
 
+        var pass = function(){
+        };
+
         var name = null;
+        var herpArray = new Array(0);
+        herpArray[0] = "herp";
+        cloudmine.deleteKeys(herpArray, pass);
 
         var lat = 5;
         var lon = 5;
@@ -36,9 +42,6 @@
             $('#name').val('');
           }
         });
-
-        var pass = function(){
-        };
 
         var updateTest = function(){
           if((user.name) != null){
@@ -69,12 +72,6 @@
         cloudmine.getValues(null, function(success) {
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
-          //var img = new Image();
-          //img.src = "images/marker.png";
-          //img.onload = function () {
-            //                ctx.drawImage(img, value.lat, value.lon);
-            //ctx.drawImage(img, 10, 10);
-          //}
 
           ctx.clearRect(0, 0, 800, 400);
           
@@ -95,17 +92,6 @@
     <div class = "container">
       <div id = "canvas_container" class = "box_shadow">
         <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
-        <!--
-        <script language = "javascript">
-          var ctx = document.getElementById('new_canvas').getContext('2d');
-          //ctx.fillRect(100, 10, 150, 150);
-          var img = new Image();
-          img.src = "images/marker.png";
-          img.onload = function () {
-          ctx.drawImage(img, 10, 10);
-          }
-        </script>
-        -->
       </div>
 
       <p>Marauder's Map</p>

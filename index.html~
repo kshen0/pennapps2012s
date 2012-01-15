@@ -13,38 +13,53 @@
 
         cloudmine.init({app_id: appid, api_key: apikey});
 
-        //assume variables lat and lon exist already from html5 geolocation
-        $('#message').bind('keydown', function(event) {
-              // Only bind to the return/enter key being pressed.
-              if(event.which == 13) {
+        var pass = function(){
+        };
 
-                var name = $('#name').val();
-              }
-        });
+        var name = null;
+        var herpArray = new Array(0);
+        herpArray[0] = "herp";
+        cloudmine.deleteValues(herpArray, pass);
 
         var lat = 5;
         var lon = 5;
 
+        //var img = new Image();
+        //img.src = "images/marker.png";
 
-
-        var pass = function(){
+        var user = {
+          'name': name,
+          'lat': lat,
+          'lon': lon
         };
+
+        $('#name').bind('keydown', function(event) {
+              // Only bind to the return/enter key being pressed.
+          if(event.which == 13) {
+            name = $('#name').val();
+            user.name = name;
+            
+            $('#name').val('');
+          }
+        });
 
         var updateTest = function(){
-          var user = {
-            //'name': name,
-            'lat': lat,
-            'lon': lon
-          };
-          lat = lat + 10;
-          lon = lon + 10;
-          console.log("new lat=" + lat + ", new lon=" + lon);
+          if((user.name) != null){
+            
+            user.lat = lat;
+            user.lon = lon;
+            lat = lat + 2;
+            lon = lon + 2;
+            console.log("new lat=" + lat + ", new lon=" + lon);
 
-          cloudmine.updateValue(name, user, pass);
-          updateMap();
+            cloudmine.updateValue(name, user, pass);
+          //if((user.name) != null){
+            updateMap();
+          //}
+          }
         };
 
-        setInterval(updateTest, 3000);
+        setInterval(updateTest, 2000);
         // Setup polling of the CloudMine servers to update the chat box.
       });
 
@@ -55,17 +70,11 @@
         var ctx = document.getElementById('new_canvas').getContext('2d');
         ctx.width = ctx.width;
         cloudmine.getValues(null, function(success) {
-          // Basic string concatination to build the string
-          // to display to the user in the chat box.
-          /*
+          
           var ctx = document.getElementById('new_canvas').getContext('2d');
-          var img = new Image();
-          img.src = "images/marker.png";
-          img.onload = function () {
-            //                ctx.drawImage(img, value.lat, value.lon);
-            ctx.drawImage(img, 10, 10);
-          }
-          */
+
+          ctx.clearRect(0, 0, 800, 400);
+          
           success.forEach(function(key, value){
             var img = new Image();
             img.src = "images/marker.png";
@@ -81,19 +90,8 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container" class = "box_shadowd">
+      <div id = "canvas_container" class = "box_shadow">
         <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
-        <!--
-        <script language = "javascript">
-          var ctx = document.getElementById('new_canvas').getContext('2d');
-          //ctx.fillRect(100, 10, 150, 150);
-          var img = new Image();
-          img.src = "images/marker.png";
-          img.onload = function () {
-          ctx.drawImage(img, 10, 10);
-          }
-        </script>
-        -->
       </div>
 
       <p>Marauder's Map</p>
