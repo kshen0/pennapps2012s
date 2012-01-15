@@ -48,7 +48,7 @@
             user.lat = lat;
             lat = lat + 2;
             lon = lon + 2;
-            console.log("new lat=" + lat + ", new lon=" + lon);
+            //console.log("new lat=" + lat + ", new lon=" + lon);
 
             cloudmine.updateValue(name, user, pass);
           //if((user.name) != null){
@@ -64,26 +64,27 @@
 
       var updateMap = function(){
         // Call the CloudMine API to grab all the data from the server. In this case
-        // we want to get all the keys since they represent all the messages.
+        // we want to get all the keys since they represent all the people.
         var ctx = document.getElementById('new_canvas').getContext('2d');
         ctx.width = ctx.width;
         cloudmine.getValues(null, function(success) {
           
-          var ctx = document.getElementById('new_canvas').getContext('2d');
+         // var ctx = document.getElementById('new_canvas').getContext('2d');
 
           ctx.clearRect(0, 0, 923, 650);
           
           var img = new Image();
           img.src = "images/banner_pointer.png";
-          ctx.font = "40px Mate SC";
-          ctx.fillText("x", 248, 43);
-          ctx.fillText("y", 58, 165);
+          ctx.font = "18px Mate SC";
           
 
           success.forEach(function(key, value){
             img.onload = function () {
-              ctx.drawImage(img, value.lat, value.lon);
-              console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
+              var tempLat = value.lat;
+              var tempLon = value.lon;
+              ctx.drawImage(img, tempLon, tempLat);
+              ctx.fillText(value.name, tempLon + 55, tempLat + 34);
+              console.log("Drawing + value.name + " at lat=" + tempLat + ", lon=" + tempLon);
             };
           });
         });
