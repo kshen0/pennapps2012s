@@ -14,8 +14,13 @@
         cloudmine.init({app_id: appid, api_key: apikey});
 
         //assume variables lat and lon exist already from html5 geolocation
+        $('#message').bind('keydown', function(event) {
+              // Only bind to the return/enter key being pressed.
+              if(event.which == 13) {
 
-        var name = $('#name').val();
+                var name = $('#name').val();
+              }
+        });
 
         var lat = 5;
         var lon = 5;
@@ -27,7 +32,7 @@
 
         var updateTest = function(){
           var user = {
-            'name': name,
+            //'name': name,
             'lat': lat,
             'lon': lon
           };
