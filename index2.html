@@ -37,20 +37,20 @@
         }
 
         function geo_error(error){
+          alert ('Checking error code');
           switch(error.code) {
-	    
-	    case error.TIMEOUT:
-	      alert ('Timeout');
-	      break;
-	    case error.POSITION_UNAVAILABLE:
-	      alert ('Position unavailable');
-	      break;
-	    case error.PERMISSION_DENIED:
-	      alert ('Permission denied');
-	      break;
-	    case error.UNKNOWN_ERROR:
-	      alert ('Unknown error');
-	      break;
+            case error.TIMEOUT:
+              alert ('Timeout');
+              break;
+            case error.POSITION_UNAVAILABLE:
+              alert ('Position unavailable');
+              break;
+            case error.PERMISSION_DENIED:
+              alert ('Permission denied');
+              break;
+            case error.UNKNOWN_ERROR:
+              alert ('Unknown error');
+              break;
 	  }
 
         }
