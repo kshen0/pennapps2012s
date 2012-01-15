@@ -1,7 +1,7 @@
 body {
   font-family: sans-serif;
   color: red;
-  background-image: url('./images/bg.jpg');
+  background-image: url('images/bg.jpg');
 }
 
 .container {
@@ -21,7 +21,7 @@ body {
 }
 
 #canvas_container {
-  background-image: url('./images/map.jpg');
+  background-image: url('images/map.jpg');
 }
 
 #new_canvas {
