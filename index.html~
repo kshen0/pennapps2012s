@@ -19,7 +19,7 @@
         var name = null;
         var herpArray = new Array(0);
         herpArray[0] = "herp";
-        cloudmine.deleteValues(herpArray, pass);
+        cloudmine.deleteKeys(herpArray, pass);
 
         var lat = 5;
         var lon = 5;
