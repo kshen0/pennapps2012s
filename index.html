@@ -139,10 +139,10 @@
               var mapheight = uly - bry;
               var x = ((brx - value.lon)/mapwidth) * 923;
               var y = ((bry - value.lat)/mapheight) * -650;
-              x = 923 - x - 79;
-              y = 650 - y - 70;
+              x = 923 - x - 40;
+              y = 650 - y - 45;
               ctx.drawImage(img, x, y);
-              ctx.fillText(value.name, x + 55, y + 34);
+              ctx.fillText(value.name, x + 32, y + 25);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
               console.log("X coord: " + x + ", Y coord: " + y);
             };
