@@ -139,7 +139,7 @@
               var mapheight = uly - bry;
               var x = ((brx - value.lon)/mapwidth) * 923;
               var y = ((bry - value.lat)/mapheight) * -650;
-              x = 923 - x - 45;
+              x = 923 - x - 40;
               y = 650 - y - 45;
               ctx.drawImage(img, x, y);
               ctx.fillText(value.name, x + 32, y + 25);
@@ -155,11 +155,11 @@
   <body>
     <div class = "container">
       <div class = "side">
-        <p>Name: <input type="text" id="name" /> </p>
+        <input type = "text" id = "name" class = "tb10"/>
       </div>
 
       <div id = "canvas_container" class = "box_shadow">
-        <canvas id="new_canvas" width = 923 height = 600> </canvas> 
+        <canvas id = "new_canvas" width = 923 height = 600> </canvas> 
       </div>
 
       <div class = "side">
