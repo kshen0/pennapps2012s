@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
@@ -17,9 +18,7 @@
         };
 
         var name = null;
-        var herpArray = new Array(0);
-        herpArray[0] = "herp";
-        cloudmine.deleteKeys(herpArray, pass);
+        cloudmine.deleteKeys(null, pass);
 
         var lat = 5;
         var lon = 5;
@@ -47,7 +46,6 @@
           if((user.name) != null){
             
             user.lat = lat;
-            user.lon = lon;
             lat = lat + 2;
             lon = lon + 2;
             console.log("new lat=" + lat + ", new lon=" + lon);
@@ -59,7 +57,7 @@
           }
         };
 
-        setInterval(updateTest, 2000);
+        setInterval(updateTest, 500);
         // Setup polling of the CloudMine servers to update the chat box.
       });
 
@@ -73,11 +71,16 @@
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
 
-          ctx.clearRect(0, 0, 800, 400);
+          ctx.clearRect(0, 0, 923, 650);
           
+          var img = new Image();
+          img.src = "images/banner_pointer.png";
+          ctx.font = "40px Mate SC";
+          ctx.fillText("x", 248, 43);
+          ctx.fillText("y", 58, 165);
+          
+
           success.forEach(function(key, value){
-            var img = new Image();
-            img.src = "images/marker.png";
             img.onload = function () {
               ctx.drawImage(img, value.lat, value.lon);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
@@ -90,12 +93,17 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container" class = "box_shadow">
-        <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
+      <div class = "side" id= = "left">
+        <p>Name: <input type="text" id="name" /> </p>
       </div>
 
-      <p>Marauder's Map</p>
-      <p>Name: <input type="text" id="name" /> </p>
+      <div id = "canvas_container" class = "box_shadow">
+        <canvas id="new_canvas" width = 923 height = 650> </canvas> 
+      </div>
+
+      <div class = "side" id = "right">
+        <p> content content content </p>
+      </div>
     </div>
   </body>
 </html>
