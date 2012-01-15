@@ -13,11 +13,51 @@
 
         cloudmine.init({app_id: appid, api_key: apikey});
 
+        var pass = function(){
+        };
+
+        var name = null;
+        cloudmine.deleteKeys(null, pass);
+
         var lat = 5;
         var lon = 5;
 
+        var watchProcess = null;
+
+        if (navigator && navigator.geolocation) {
+          watchProcess =
+          navigator.geolocation.watchPosition(geo_success, geo_error);
+        } else{
+          //error('Geolocation is not supported.');
+        }
+
+        function geo_success(position){
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+        }
+
+        function geo_error(error){
+          switch(error.code) {
+	    
+	    case error.TIMEOUT:
+	      alert ('Timeout');
+	      break;
+	    case error.POSITION_UNAVAILABLE:
+	      alert ('Position unavailable');
+	      break;
+	    case error.PERMISSION_DENIED:
+	      alert ('Permission denied');
+	      break;
+	    case error.UNKNOWN_ERROR:
+	      alert ('Unknown error');
+	      break;
+	  }
+
+        }
+         
+
         var user = {
-          'name': null,
+          'name': name,
           'lat': lat,
           'lon': lon
         };
@@ -25,31 +65,39 @@
         $('#name').bind('keydown', function(event) {
               // Only bind to the return/enter key being pressed.
           if(event.which == 13) {
-            var name = $('#name').val();
+
+            if (navigator && navigator.geolocation) {
+              navigator.geolocation.watchPosition(geo_success, geo_error);
+            } else{
+              error('Geolocation is not supported.');
+            }
+
+            name = $('#name').val();
             user.name = name;
+            
             $('#name').val('');
           }
         });
 
-        var pass = function(){
-        };
-
         var updateTest = function(){
           if((user.name) != null){
+
+            
+            
             user.lat = lat;
             user.lon = lon;
-            lat = lat + 10;
-            lon = lon + 10;
+            //lat = lat + 2;
+            //lon = lon + 2;
             console.log("new lat=" + lat + ", new lon=" + lon);
 
             cloudmine.updateValue(name, user, pass);
-          //if((user.name) != null){
+          
             updateMap();
-          //}
+          
           }
         };
 
-        setInterval(updateTest, 500);
+        setInterval(updateTest, 2000);
         // Setup polling of the CloudMine servers to update the chat box.
       });
 
@@ -62,18 +110,22 @@
         cloudmine.getValues(null, function(success) {
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
-          var img = new Image();
-          img.src = "images/marker.png";
-          img.onload = function () {
-            //                ctx.drawImage(img, value.lat, value.lon);
-            ctx.drawImage(img, 10, 10);
-          }
+
+          ctx.clearRect(0, 0, 800, 400);
           
           success.forEach(function(key, value){
             var img = new Image();
             img.src = "images/marker.png";
             img.onload = function () {
-              ctx.drawImage(img, value.lat, value.lon);
+              var ulx = 39.95708;
+              var uly = -75.206416;
+              var brx = 39.948678;
+              var bry = -75.188155;
+              var mapwidth = ulx - brx;
+              var mapheight = bry - uly;
+              var x = ((value.lat-ulx)/mapwidth) * 800;
+              var y = ((value.lon-uly)/mapheight) * 400;
+              ctx.drawImage(img, x, y);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
             };
           });
@@ -84,19 +136,8 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container">
-        <canvas id="new_canvas" width = 800 height = 400> </canvas> 
-        <!--
-        <script language = "javascript">
-          var ctx = document.getElementById('new_canvas').getContext('2d');
-          //ctx.fillRect(100, 10, 150, 150);
-          var img = new Image();
-          img.src = "images/marker.png";
-          img.onload = function () {
-          ctx.drawImage(img, 10, 10);
-          }
-        </script>
-        -->
+      <div id = "canvas_container" class = "box_shadow">
+        <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
       </div>
 
       <p>Marauder's Map</p>
