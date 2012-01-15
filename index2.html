@@ -13,16 +13,11 @@
 
         cloudmine.init({app_id: appid, api_key: apikey});
 
-        var name = null;
-
         var lat = 5;
         var lon = 5;
 
-        //var img = new Image();
-        //img.src = "images/marker.png";
-
         var user = {
-          'name': name,
+          'name': null,
           'lat': lat,
           'lon': lon
         };
@@ -30,9 +25,8 @@
         $('#name').bind('keydown', function(event) {
               // Only bind to the return/enter key being pressed.
           if(event.which == 13) {
-            name = $('#name').val();
+            var name = $('#name').val();
             user.name = name;
-            
             $('#name').val('');
           }
         });
@@ -42,11 +36,10 @@
 
         var updateTest = function(){
           if((user.name) != null){
-            
             user.lat = lat;
             user.lon = lon;
-            lat = lat + 2;
-            lon = lon + 2;
+            lat = lat + 10;
+            lon = lon + 10;
             console.log("new lat=" + lat + ", new lon=" + lon);
 
             cloudmine.updateValue(name, user, pass);
@@ -56,7 +49,7 @@
           }
         };
 
-        setInterval(updateTest, 2000);
+        setInterval(updateTest, 500);
         // Setup polling of the CloudMine servers to update the chat box.
       });
 
@@ -69,14 +62,12 @@
         cloudmine.getValues(null, function(success) {
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
-          //var img = new Image();
-          //img.src = "images/marker.png";
-          //img.onload = function () {
+          var img = new Image();
+          img.src = "images/marker.png";
+          img.onload = function () {
             //                ctx.drawImage(img, value.lat, value.lon);
-            //ctx.drawImage(img, 10, 10);
-          //}
-
-          ctx.clearRect(0, 0, 800, 400);
+            ctx.drawImage(img, 10, 10);
+          }
           
           success.forEach(function(key, value){
             var img = new Image();
@@ -93,8 +84,8 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container" class = "box_shadow">
-        <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
+      <div id = "canvas_container">
+        <canvas id="new_canvas" width = 800 height = 400> </canvas> 
         <!--
         <script language = "javascript">
           var ctx = document.getElementById('new_canvas').getContext('2d');
