@@ -1,5 +1,5 @@
 <!-- Working geolocation
-03:04 1/15/2012
+07:01 1/15/2012
 -->
 <!DOCTYPE HTML>
 <html>
@@ -118,7 +118,7 @@
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
 
-          ctx.clearRect(0, 0, 923, 552);
+          ctx.clearRect(0, 0, 922, 552);
           ctx.font = "18px Mate SC";
           
           success.forEach(function(key, value){
@@ -133,12 +133,16 @@
 
               var mapwidth = brx - ulx;
               var mapheight = uly - bry;
-              var x = ((brx - value.lon)/mapwidth) * 923;
+              var x = ((brx - value.lon)/mapwidth) * 922;
               var y = ((bry - value.lat)/mapheight) * -552;
-              x = 923 - x - 36;
-              y = 552 - y - 29;
+              /*
+              x = 922 - x;
+              y = 552 - y;
+              */
+              x = 922 - x - 20;
+              y = 552 - y - 36;
               ctx.drawImage(img, x, y);
-              ctx.fillText(value.name, x + 32, y + 25);
+              ctx.fillText(value.name, x + 22, y + 22);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
               console.log("X coord: " + x + ", Y coord: " + y);
           /*
@@ -181,7 +185,7 @@
       </div>
 
       <div id = "canvas_container" class = "box_shadow">
-        <canvas id = "new_canvas" width = 923 height = 552> </canvas> 
+        <canvas id = "new_canvas" width = 922 height = 552> </canvas> 
       </div>
 
     </div>
