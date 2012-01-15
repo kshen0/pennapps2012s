@@ -2,6 +2,8 @@ body {
   font-family: sans-serif;
   color: red;
   background-image: url('images/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .uses_gfont {

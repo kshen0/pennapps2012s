@@ -5,7 +5,7 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
@@ -119,6 +119,7 @@
           var ctx = document.getElementById('new_canvas').getContext('2d');
 
           ctx.clearRect(0, 0, 923, 650);
+          ctx.font = "18px Mate SC";
           
           success.forEach(function(key, value){
             var img = new Image();
@@ -141,6 +142,7 @@
               x = 923 - x - 79;
               y = 650 - y - 70;
               ctx.drawImage(img, x, y);
+              ctx.fillText(value.name, x + 55, y + 34);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
               console.log("X coord: " + x + ", Y coord: " + y);
             };
