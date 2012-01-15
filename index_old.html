@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
+    <script src="js/cloudmine.js" language="javascript"></script>
+    <script language="javascript">
+
+      // cloudmine business 
+      $(document).ready(function() {
+        var appid = "94336397485543688720ad79969d34b7";
+        var apikey = "dc5b01275f1d4846a51296dd915686b5";
+
+        cloudmine.init({app_id: appid, api_key: apikey});
+
+        var pass = function(){
+        };
+
+        var name = null;
+        cloudmine.deleteKeys(null, pass);
+
+        var lat = 5;
+        var lon = 5;
+
+        //var img = new Image();
+        //img.src = "images/marker.png";
+
+        var user = {
+          'name': name,
+          'lat': lat,
+          'lon': lon
+        };
+
+        $('#name').bind('keydown', function(event) {
+              // Only bind to the return/enter key being pressed.
+          if(event.which == 13) {
+            name = $('#name').val();
+            user.name = name;
+            
+            $('#name').val('');
+          }
+        });
+
+        var updateTest = function(){
+          if((user.name) != null){
+            
+            user.lat = lat;
+            lat = lat + 2;
+            lon = lon + 2;
+            //console.log("new lat=" + lat + ", new lon=" + lon);
+
+            cloudmine.updateValue(name, user, pass);
+          //if((user.name) != null){
+            updateMap();
+          //}
+          }
+        };
+
+        setInterval(updateTest, 500);
+        // Setup polling of the CloudMine servers to update the chat box.
+      });
+
+
+      var updateMap = function(){
+        // Call the CloudMine API to grab all the data from the server. In this case
+        // we want to get all the keys since they represent all the people.
+        var ctx = document.getElementById('new_canvas').getContext('2d');
+        ctx.width = ctx.width;
+        cloudmine.getValues(null, function(success) {
+          
+         // var ctx = document.getElementById('new_canvas').getContext('2d');
+
+          ctx.clearRect(0, 0, 923, 650);
+          
+          var img = new Image();
+          img.src = "images/banner_pointer.png";
+          ctx.font = "18px Mate SC";
+          
+
+          success.forEach(function(key, value){
+            img.onload = function () {
+              var tempLat = value.lat;
+              var tempLon = value.lon;
+              ctx.drawImage(img, tempLon, tempLat);
+              ctx.fillText(value.name, tempLon + 55, tempLat + 34);
+              console.log("Drawing + value.name + " at lat=" + tempLat + ", lon=" + tempLon);
+            };
+          });
+        });
+      }
+    </script>
+
+  </head>
+  <body>
+    <div class = "container">
+      <div class = "side" id= = "left">
+        <p>Name: <input type="text" id="name" /> </p>
+      </div>
+
+      <div id = "canvas_container" class = "box_shadow">
+        <canvas id="new_canvas" width = 923 height = 650> </canvas> 
+      </div>
+
+      <div class = "side" id = "right">
+        <p> content content content </p>
+      </div>
+    </div>
+  </body>
+</html>
