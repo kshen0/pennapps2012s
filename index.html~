@@ -135,8 +135,8 @@
               var mapheight = uly - bry;
               var x = ((brx - value.lon)/mapwidth) * 923;
               var y = ((bry - value.lat)/mapheight) * -552;
-              x = 923 - x;
-              y = 552 - y;
+              x = 923 - x - 36;
+              y = 552 - y - 29;
               ctx.drawImage(img, x, y);
               ctx.fillText(value.name, x + 32, y + 25);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
@@ -181,7 +181,7 @@
       </div>
 
       <div id = "canvas_container" class = "box_shadow">
-        <canvas id = "new_canvas" width = 923 height = 600> </canvas> 
+        <canvas id = "new_canvas" width = 923 height = 552> </canvas> 
       </div>
 
     </div>
