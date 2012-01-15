@@ -118,6 +118,31 @@
           
           var ctx = document.getElementById('new_canvas').getContext('2d');
 
+          ctx.clearRect(0, 0, 923, 552);
+          ctx.font = "18px Mate SC";
+          
+          success.forEach(function(key, value){
+            var img = new Image();
+            img.src = "images/banner_pointer.png";
+            img.onload = function () {
+
+              var uly = 39.95638 + 0.000080;
+              var ulx = -75.206406 + 0.000280;
+              var bry = 39.948608 + 0.000080;
+              var brx = -75.188155 + 0.000280;
+
+              var mapwidth = brx - ulx;
+              var mapheight = uly - bry;
+              var x = ((brx - value.lon)/mapwidth) * 923;
+              var y = ((bry - value.lat)/mapheight) * -552;
+              x = 923 - x;
+              y = 552 - y;
+              ctx.drawImage(img, x, y);
+              ctx.fillText(value.name, x + 32, y + 25);
+              console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
+              console.log("X coord: " + x + ", Y coord: " + y);
+          /*
+           * stretched vertical offset
           ctx.clearRect(0, 0, 923, 650);
           ctx.font = "18px Mate SC";
           
@@ -125,10 +150,6 @@
             var img = new Image();
             img.src = "images/banner_pointer.png";
             img.onload = function () {
-              /*var uly = 39.95708;
-              var ulx = -75.206416;
-              var bry = 39.948678;
-              var brx = -75.188155;*/
 
               var uly = 39.95638 + 0.000080;
               var ulx = -75.206406 + 0.000280;
@@ -145,6 +166,7 @@
               ctx.fillText(value.name, x + 32, y + 25);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
               console.log("X coord: " + x + ", Y coord: " + y);
+              */
             };
           });
         });
@@ -155,7 +177,7 @@
   <body>
     <div class = "container">
       <div class = "side">
-        <input type = "text" id = "name" class = "tb10"/>
+        <input type="text" id="name" class= "tb10"/>
       </div>
 
       <div id = "canvas_container" class = "box_shadow">
