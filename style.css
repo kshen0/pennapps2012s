@@ -4,6 +4,10 @@ body {
   background-image: url('images/bg.jpg');
 }
 
+.uses_gfont {
+  font-family: 'Mate SC', serif;
+}
+
 .container {
   width: 1200px;
   margin: 60px auto 0px auto;

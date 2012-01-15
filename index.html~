@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
@@ -45,7 +46,6 @@
           if((user.name) != null){
             
             user.lat = lat;
-            user.lon = lon;
             lat = lat + 2;
             lon = lon + 2;
             console.log("new lat=" + lat + ", new lon=" + lon);
@@ -73,9 +73,14 @@
 
           ctx.clearRect(0, 0, 1200, 600);
           
+          var img = new Image();
+          img.src = "images/marker.png";
+          context.font = "bold 12px sans-serif";
+          context.fillText("x", 248, 43);
+          context.fillText("y", 58, 165);
+          
+
           success.forEach(function(key, value){
-            var img = new Image();
-            img.src = "images/marker.png";
             img.onload = function () {
               ctx.drawImage(img, value.lat, value.lon);
               console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
