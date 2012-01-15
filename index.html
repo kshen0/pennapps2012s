@@ -1,8 +1,10 @@
+<!-- Working geolocation
+03:04 1/15/2012
+-->
 <!DOCTYPE HTML>
 <html>
   <head>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Mate+SC' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" language="javascript"></script>
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
@@ -20,11 +22,45 @@
         var name = null;
         cloudmine.deleteKeys(null, pass);
 
-        var lat = 5;
-        var lon = 5;
+        var lat = 50;
+        var lon = 50;
 
-        //var img = new Image();
-        //img.src = "images/marker.png";
+        var watchProcess = null;
+
+        if (navigator && navigator.geolocation) {
+          watchProcess =
+          navigator.geolocation.watchPosition(geo_success, geo_error);
+        } else{
+          //error('Geolocation is not supported.');
+        }
+
+        function geo_success(position){
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+          //lat = 39.952846;
+          //lon = -75.196186;
+          console.log("found you, haxor");
+        }
+
+        function geo_error(error){
+          switch(error.code) {
+	    
+	    case error.TIMEOUT:
+	      alert ('Timeout');
+	      break;
+	    case error.POSITION_UNAVAILABLE:
+	      alert ('Position unavailable');
+	      break;
+	    case error.PERMISSION_DENIED:
+	      alert ('Permission denied');
+	      break;
+	    case error.UNKNOWN_ERROR:
+	      alert ('Unknown error');
+	      break;
+	  }
+
+        }
+         
 
         var user = {
           'name': name,
@@ -35,6 +71,13 @@
         $('#name').bind('keydown', function(event) {
               // Only bind to the return/enter key being pressed.
           if(event.which == 13) {
+
+            if (navigator && navigator.geolocation) {
+              navigator.geolocation.watchPosition(geo_success, geo_error);
+            } else{
+              error('Geolocation is not supported.');
+            }
+
             name = $('#name').val();
             user.name = name;
             
@@ -44,47 +87,61 @@
 
         var updateTest = function(){
           if((user.name) != null){
+
+            
             
             user.lat = lat;
-            lat = lat + 2;
-            lon = lon + 2;
-            //console.log("new lat=" + lat + ", new lon=" + lon);
+            user.lon = lon;
+            //lat = lat + 2;
+            //lon = lon + 2;
+            console.log("new lat=" + lat + ", new lon=" + lon);
 
             cloudmine.updateValue(name, user, pass);
-          //if((user.name) != null){
+          
             updateMap();
-          //}
+          
           }
         };
 
-        setInterval(updateTest, 500);
+        setInterval(updateTest, 2000);
         // Setup polling of the CloudMine servers to update the chat box.
       });
 
 
       var updateMap = function(){
         // Call the CloudMine API to grab all the data from the server. In this case
-        // we want to get all the keys since they represent all the people.
+        // we want to get all the keys since they represent all the messages.
         var ctx = document.getElementById('new_canvas').getContext('2d');
         ctx.width = ctx.width;
         cloudmine.getValues(null, function(success) {
           
-         // var ctx = document.getElementById('new_canvas').getContext('2d');
+          var ctx = document.getElementById('new_canvas').getContext('2d');
 
           ctx.clearRect(0, 0, 923, 650);
           
-          var img = new Image();
-          img.src = "images/banner_pointer.png";
-          ctx.font = "18px Mate SC";
-          
-
           success.forEach(function(key, value){
+            var img = new Image();
+            img.src = "images/marker.png";
             img.onload = function () {
-              var tempLat = value.lat;
-              var tempLon = value.lon;
-              ctx.drawImage(img, tempLon, tempLat);
-              ctx.fillText(value.name, tempLon + 55, tempLat + 34);
-              console.log("Drawing + value.name + " at lat=" + tempLat + ", lon=" + tempLon);
+              /*var uly = 39.95708;
+              var ulx = -75.206416;
+              var bry = 39.948678;
+              var brx = -75.188155;*/
+
+              var uly = 39.95638 + 0.000080;
+              var ulx = -75.206406 + 0.000280;
+              var bry = 39.948608 + 0.000080;
+              var brx = -75.188155 + 0.000280;
+
+              var mapwidth = brx - ulx;
+              var mapheight = uly - bry;
+              var x = ((brx - value.lon)/mapwidth) * 923;
+              var y = ((bry - value.lat)/mapheight) * -650;
+              x = 923 - x;
+              y = 650 - y;
+              ctx.drawImage(img, x, y);
+              console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
+              console.log("X coord: " + x + ", Y coord: " + y);
             };
           });
         });
@@ -94,16 +151,16 @@
   </head>
   <body>
     <div class = "container">
-      <div class = "side" id= = "left">
+      <div class = "side">
         <p>Name: <input type="text" id="name" /> </p>
       </div>
 
       <div id = "canvas_container" class = "box_shadow">
-        <canvas id="new_canvas" width = 923 height = 650> </canvas> 
+        <canvas id="new_canvas" width = 923 height = 600> </canvas> 
       </div>
 
-      <div class = "side" id = "right">
-        <p> content content content </p>
+      <div class = "side">
+        <p> some content </p>
       </div>
     </div>
   </body>
