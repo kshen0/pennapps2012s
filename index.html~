@@ -6,86 +6,89 @@
     <script src="js/cloudmine.js" language="javascript"></script>
     <script language="javascript">
 
-		// cloudmine business 
+      // cloudmine business 
       $(document).ready(function() {
         var appid = "94336397485543688720ad79969d34b7";
-		    var apikey = "dc5b01275f1d4846a51296dd915686b5";
+        var apikey = "dc5b01275f1d4846a51296dd915686b5";
 
-          cloudmine.init({app_id: appid, api_key: apikey});
+        cloudmine.init({app_id: appid, api_key: apikey});
 
-          //assume variables lat and lon exist already from html5 geolocation
+        //assume variables lat and lon exist already from html5 geolocation
 
-          var name= $('#name').val();
+        var name = $('#name').val();
 
-          var lat = 5;
-          var lon = 5;
+        var lat = 5;
+        var lon = 5;
 
+
+
+        var pass = function(){
+        };
+
+        var updateTest = function(){
           var user = {
-              'name': name,
-              'lat': lat,
-              'lon': lon
+            'name': name,
+            'lat': lat,
+            'lon': lon
           };
+          lat = lat + 10;
+          lon = lon + 10;
+          console.log("new lat=" + lat + ", new lon=" + lon);
 
-          var null = function(){
-          }
-
-          var updateTest = function(){
-            lat = lat + 10;
-            lon = lon + 10;
-
-            cloudmine.updateValue(name, user, null);
-          }
-
-          setInterval(updateTest, 3000);
-
-          // Setup polling of the CloudMine servers to update the chat box.
-          var updateMap = function(){
-              // Call the CloudMine API to grab all the data from the server. In this case
-              // we want to get all the keys since they represent all the messages.
-              var chat = '';
-              cloudmine.getValues(null, function(success) {
-                  // Basic string concatination to build the string
-                  // to display to the user in the chat box.
-                  success.forEach(function(key, value){
-                      chat += value.name + ': ' + value.message + "\n";
-                   });
-
-                  // Show the assembled string in the chat box.
-                  $('#chat').val(chat);
-              });
-          }
-
+          cloudmine.updateValue(name, user, pass);
           updateMap();
-          setInterval(updateMap, 1000);
+        };
+
+        setInterval(updateTest, 3000);
+        // Setup polling of the CloudMine servers to update the chat box.
       });
+
+
+      var updateMap = function(){
+        // Call the CloudMine API to grab all the data from the server. In this case
+        // we want to get all the keys since they represent all the messages.
+        var ctx = document.getElementById('new_canvas').getContext('2d');
+        ctx.width = ctx.width;
+        cloudmine.getValues(null, function(success) {
+          // Basic string concatination to build the string
+          // to display to the user in the chat box.
+          /*
+          var ctx = document.getElementById('new_canvas').getContext('2d');
+          var img = new Image();
+          img.src = "images/marker.png";
+          img.onload = function () {
+            //                ctx.drawImage(img, value.lat, value.lon);
+            ctx.drawImage(img, 10, 10);
+          }
+          */
+          success.forEach(function(key, value){
+            var img = new Image();
+            img.src = "images/marker.png";
+            img.onload = function () {
+              ctx.drawImage(img, value.lat, value.lon);
+              console.log("name=" + value.name + ", lat=" + value.lat + ", lon=" + value.lon);
+            };
+          });
+        });
+      }
     </script>
 
   </head>
   <body>
-    <!--
-    <p><canvas id="new_canvas" width="500" height="510"></canvas><br /> 
-    <p>Marauder's Map</p>
-    <script language = "javascript"> 
-    var ctx = document.getElementById('new_canvas').getContext('2d');
-    var img = new Image();
-    img.src = "images/tried.jpg";
-    img.onload = function () {
-    ctx.drawImage(img,0,0);
-    }
-    -->
     <div class = "container">
-
       <div id = "canvas_container">
         <canvas id="new_canvas" width = 800 height = 400> </canvas> 
-        <script language = "javascript"> 
+        <!--
+        <script language = "javascript">
           var ctx = document.getElementById('new_canvas').getContext('2d');
           //ctx.fillRect(100, 10, 150, 150);
           var img = new Image();
           img.src = "images/marker.png";
           img.onload = function () {
-           ctx.drawImage(img,10,10);
+          ctx.drawImage(img, 10, 10);
           }
         </script>
+        -->
       </div>
 
       <p>Marauder's Map</p>
