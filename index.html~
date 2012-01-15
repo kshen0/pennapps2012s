@@ -14,8 +14,13 @@
         cloudmine.init({app_id: appid, api_key: apikey});
 
         //assume variables lat and lon exist already from html5 geolocation
+        $('#message').bind('keydown', function(event) {
+              // Only bind to the return/enter key being pressed.
+              if(event.which == 13) {
 
-        var name = $('#name').val();
+                var name = $('#name').val();
+              }
+        });
 
         var lat = 5;
         var lon = 5;
@@ -27,7 +32,7 @@
 
         var updateTest = function(){
           var user = {
-            'name': name,
+            //'name': name,
             'lat': lat,
             'lon': lon
           };
@@ -76,8 +81,8 @@
   </head>
   <body>
     <div class = "container">
-      <div id = "canvas_container">
-        <canvas id="new_canvas" width = 800 height = 400> </canvas> 
+      <div id = "canvas_container" class = "box_shadowd">
+        <canvas id="new_canvas" width = 1200 height = 600> </canvas> 
         <!--
         <script language = "javascript">
           var ctx = document.getElementById('new_canvas').getContext('2d');
